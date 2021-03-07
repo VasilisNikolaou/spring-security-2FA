@@ -10,4 +10,5 @@ import lombok.Setter;
 public class OtpCheckUserRequest {
 
     private Long id;
+    private String code;
 }
