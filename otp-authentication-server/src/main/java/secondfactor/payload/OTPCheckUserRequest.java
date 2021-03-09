@@ -7,8 +7,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class OtpCheckUserRequest {
+public class OTPCheckUserRequest {
 
     private Long id;
-    private String code;
+    private String otp;
 }

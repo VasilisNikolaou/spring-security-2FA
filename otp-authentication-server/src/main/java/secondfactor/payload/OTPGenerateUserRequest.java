@@ -7,7 +7,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class OtpGenerateUserRequest {
+public class OTPGenerateUserRequest {
 
     private Long id;
     private String phoneNumber;

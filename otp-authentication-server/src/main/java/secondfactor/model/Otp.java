@@ -16,7 +16,7 @@ public class Otp {
     @Id
     private Long id;
 
-    private String code;
+    private String otp;
 
     @Column(name = "expires_at")
     private LocalDateTime expiresAt;

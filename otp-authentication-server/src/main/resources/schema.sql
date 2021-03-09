@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS 2fa.otp (
    id BIGINT NOT NULL,
-   code VARCHAR(5) NOT NULL,
+   otp VARCHAR(5) NOT NULL,
    expires_at DATETIME NOT NULL,
    PRIMARY KEY (id)
 );
