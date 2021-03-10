@@ -21,6 +21,6 @@ public class OTPController {
 
     @PostMapping("/checkOTP")
     public boolean checkOTP(@RequestBody OTPCheckUserRequest otpCheckUserRequest) {
-        
+        return this.otpService.checkOTP(otpCheckUserRequest);
     }
 }

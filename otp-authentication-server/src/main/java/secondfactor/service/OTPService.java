@@ -47,7 +47,16 @@ public class OTPService {
     }
 
     public boolean checkOTP(OTPCheckUserRequest otpCheckUserRequest) {
+        Optional<Otp> optionalOtp = this.otpRepository.findById(otpCheckUserRequest.getId());
 
+        if (optionalOtp.isPresent()) {
+            var existingOTP = optionalOtp.get();
+
+            return existingOTP.getOtp().equals(otpCheckUserRequest.getOtp())
+                           && existingOTP.getExpiresAt().isAfter(LocalDateTime.now());
+        }
+
+        return false;
     }
 
 
@@ -56,7 +65,7 @@ public class OTPService {
         Message message = Message.creator(
                 new PhoneNumber(phoneNumber),
                 new PhoneNumber(environment.getProperty("twilio.phoneNumber")),
-                "Your OTP is: " + OTP
+                "Your OTP is: " + OTP + ", and it's valid for 5 minutes."
         ).create();
     }
 }
