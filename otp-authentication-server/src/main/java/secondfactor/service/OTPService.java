@@ -1,6 +1,10 @@
 package secondfactor.service;
 
+import com.twilio.Twilio;
+import com.twilio.rest.api.v2010.account.Message;
+import com.twilio.type.PhoneNumber;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import secondfactor.model.Otp;
@@ -18,6 +22,7 @@ import java.util.Optional;
 public class OTPService {
 
     private final OTPRepository otpRepository;
+    private final Environment environment;
 
     public void generateOTP(OTPGenerateUserRequest otpGenerateUserRequest) {
         Optional<Otp> optionalOTPFor = this.otpRepository.findById(otpGenerateUserRequest.getId());
@@ -47,6 +52,11 @@ public class OTPService {
 
 
     private void sendOTPViaSms(String OTP, String phoneNumber) {
-
+        Twilio.init(environment.getProperty("twilio.accountSid"), environment.getProperty("twilio.authToken"));
+        Message message = Message.creator(
+                new PhoneNumber(phoneNumber),
+                new PhoneNumber(environment.getProperty("twilio.phoneNumber")),
+                "Your OTP is: " + OTP
+        ).create();
     }
 }
