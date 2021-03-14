@@ -1,4 +1,4 @@
-package model;
+package firstfactor.model;
 
 import lombok.AccessLevel;
 import lombok.Getter;
