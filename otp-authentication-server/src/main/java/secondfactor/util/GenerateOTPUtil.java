@@ -16,7 +16,10 @@ public class GenerateOTPUtil {
             return OTP;
 
         } catch (NoSuchAlgorithmException e) {
-            return String.valueOf(new Random().nextInt(100_000));
+            SecureRandom secureRandom = new SecureRandom();
+            int randomOTP = secureRandom.ints(10_000, 100_000)
+                    .findFirst().getAsInt();
+            return String.valueOf(randomOTP);
         }
     }
 }
