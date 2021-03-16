@@ -39,7 +39,7 @@ public class LoginFilter extends OncePerRequestFilter {
                 authenticationManager.authenticate(
                         new UsernamePasswordAuthentication(userLoginRequest.getUsername(), userLoginRequest.getPassword()));
 
-                // if we reached here user is validated
+                // if we reached here the user is validated
                 httpServletResponse.setStatus(HttpServletResponse.SC_OK);
 
             } else {

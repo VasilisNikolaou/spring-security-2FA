@@ -2,6 +2,6 @@ CREATE TABLE IF NOT EXISTS 2fa.user(
   id BIGINT NOT NULL AUTO_INCREMENT,
   username VARCHAR(50) NOT NULL,
   password VARCHAR(50) NOT NULL,
-  phone_number VARCHAR(10) NOT NULL,
+  phone_number VARCHAR(13) NOT NULL,
 
   PRIMARY KEY (id));

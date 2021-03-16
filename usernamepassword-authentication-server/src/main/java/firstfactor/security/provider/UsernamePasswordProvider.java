@@ -3,6 +3,7 @@ package firstfactor.security.provider;
 import firstfactor.model.User;
 import firstfactor.repository.UserRepository;
 import firstfactor.security.authentication.UsernamePasswordAuthentication;
+import firstfactor.security.proxy.OTPAuthenticationServerProxy;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,9 @@ public class UsernamePasswordProvider implements AuthenticationProvider {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private OTPAuthenticationServerProxy proxy;
+
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         String username = String.valueOf(authentication.getPrincipal());
@@ -44,7 +48,7 @@ public class UsernamePasswordProvider implements AuthenticationProvider {
             }
 
             //Before we return we should send the OTP to user's phone.
-            //TODO: Send the OTP to user's phone via a proxy.
+            proxy.sendOTP(user.getId(), user.getPhoneNumber());
 
             return new UsernamePasswordAuthentication(username, password);
 
