@@ -3,6 +3,7 @@ package firstfactor.security.filter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import firstfactor.payload.ApiError;
 import firstfactor.payload.UserLoginRequest;
+import firstfactor.security.authentication.OTPAuthentication;
 import firstfactor.security.authentication.UsernamePasswordAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -44,6 +45,10 @@ public class LoginFilter extends OncePerRequestFilter {
 
             } else {
                 // Here we should call the appropriate provider for validating the OTP
+                authenticationManager.authenticate(
+                        new OTPAuthentication(String.valueOf(userLoginRequest.getId()), userLoginRequest.getOtp()));
+
+
             }
 
         } catch (AuthenticationException authExc) {
