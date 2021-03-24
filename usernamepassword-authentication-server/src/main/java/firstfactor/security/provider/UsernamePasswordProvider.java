@@ -35,7 +35,7 @@ public class UsernamePasswordProvider implements AuthenticationProvider {
         String password = String.valueOf(authentication.getCredentials());
 
         if(username != null && password != null) {
-            Optional<User> optionalUser = userRepository.findByUsername(username);
+            Optional<User> optionalUser = this.userRepository.findByUsername(username);
 
             if(optionalUser.isEmpty()) {
                 throw new UsernameNotFoundException("Wrong Credentials");

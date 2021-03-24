@@ -46,7 +46,7 @@ public class LoginFilter extends OncePerRequestFilter {
             } else {
                 // Here we should call the appropriate provider for validating the OTP
                 authenticationManager.authenticate(
-                        new OTPAuthentication(String.valueOf(userLoginRequest.getId()), userLoginRequest.getOtp()));
+                        new OTPAuthentication(userLoginRequest.getUsername(), userLoginRequest.getOtp()));
 
 
             }
