@@ -1,6 +1,7 @@
 package firstfactor.config;
 
 import firstfactor.security.filter.LoginFilter;
+import firstfactor.security.provider.OTPAuthenticationProvider;
 import firstfactor.security.provider.UsernamePasswordProvider;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.Session;
@@ -28,6 +29,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private UsernamePasswordProvider usernamePasswordProvider;
 
+    @Autowired
+    private OTPAuthenticationProvider otpAuthenticationProvider;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
@@ -39,7 +43,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.authenticationProvider(usernamePasswordProvider);
+        auth.authenticationProvider(usernamePasswordProvider)
+                .authenticationProvider(otpAuthenticationProvider);
     }
 
     @Bean(BeanIds.AUTHENTICATION_MANAGER)
