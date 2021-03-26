@@ -3,6 +3,7 @@ package firstfactor.security.provider;
 import firstfactor.model.User;
 import firstfactor.repository.UserRepository;
 import firstfactor.security.authentication.OTPAuthentication;
+import firstfactor.security.authentication.UsernamePasswordAuthentication;
 import firstfactor.security.proxy.OTPAuthenticationServerProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -25,24 +26,29 @@ public class OTPAuthenticationProvider implements AuthenticationProvider {
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-         String username = String.valueOf(authentication.getPrincipal());
-         String otp = String.valueOf(authentication.getCredentials());
+        String username = String.valueOf(authentication.getPrincipal());
+        String otp = String.valueOf(authentication.getCredentials());
 
-         if(username != null && otp != null) {
-             Optional<User> optionalUser = this.userRepository.findByUsername(username);
+        if (username != null && otp != null) {
+            Optional<User> optionalUser = this.userRepository.findByUsername(username);
 
-             if(optionalUser.isEmpty()) {
-                 throw new UsernameNotFoundException("Wrong Credentials");
-             }
+            if (optionalUser.isEmpty()) {
+                throw new UsernameNotFoundException("Wrong Credentials");
+            }
 
-             User user = optionalUser.get();
+            User user = optionalUser.get();
 
-             //TODO
-             proxy.validateOTP(user.getId(), otp);
+            boolean result = proxy.validateOTP(user.getId(), otp);
 
-         } else {
-             throw new BadCredentialsException("Username and OTP must not be null");
-         }
+            if (result) {
+                return new OTPAuthentication(username, otp);
+            }
+
+            throw new BadCredentialsException("Wrong OTP provided ...");
+
+        } else {
+            throw new BadCredentialsException("Username and OTP must not be null");
+        }
     }
 
     @Override

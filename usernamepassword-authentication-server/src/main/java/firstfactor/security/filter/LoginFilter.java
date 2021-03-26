@@ -29,7 +29,6 @@ public class LoginFilter extends OncePerRequestFilter {
                                     FilterChain filterChain) throws ServletException, IOException {
 
 
-
         //Extract username/password and OTP
         //We should check also the inputstream format and reply accordingly in case of error, for simplicity we don't
         UserLoginRequest userLoginRequest = new ObjectMapper()
@@ -48,7 +47,9 @@ public class LoginFilter extends OncePerRequestFilter {
                 authenticationManager.authenticate(
                         new OTPAuthentication(userLoginRequest.getUsername(), userLoginRequest.getOtp()));
 
-
+                // Here we know for sure that the OTP is valid.
+                // So we should generate a JWT, for simplicity we don't.
+                httpServletResponse.setStatus(HttpServletResponse.SC_OK);
             }
 
         } catch (AuthenticationException authExc) {
