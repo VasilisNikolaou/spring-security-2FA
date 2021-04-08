@@ -14,5 +14,5 @@ For this repository seperating the logic in two servers might be an overkill but
 
 # The Bigger Picture
 
-![First Factor](/images/1stphase.png)
+![First Factor](./images/1stphase.png)
 
