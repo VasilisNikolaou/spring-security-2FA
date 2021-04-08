@@ -44,7 +44,7 @@ public class OTPAuthenticationProvider implements AuthenticationProvider {
                 return new OTPAuthentication(username, otp);
             }
 
-            throw new BadCredentialsException("Wrong OTP provided ...");
+            throw new BadCredentialsException("Wrong OTP provided ..."); 
 
         } else {
             throw new BadCredentialsException("Username and OTP must not be null");
