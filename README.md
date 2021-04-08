@@ -13,6 +13,12 @@ For this repository seperating the logic in two servers might be an overkill but
 * Twilio API (for sending the OTP in user's phone)
 
 # The Bigger Picture
+*First the user sends his credentials at '/login' then if they are valid we are generating the OTP and sending it in user's phone via Twilio API.*
 
 ![Alt text](/images/1st%20phase.png)
+
+*After that, the user must submit the OTP that he received and the otp-authentication-server checks its validity.*
+
+![Alt text](/images/2nd%20phase.png)
+
 
